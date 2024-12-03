@@ -3,7 +3,7 @@ import { env } from "../../env/index.js";
 
 const { host, port, user, password, database } = env;
 
-const pool = await createPool({
+export const pool = await createPool({
     host,
     port,
     user,
