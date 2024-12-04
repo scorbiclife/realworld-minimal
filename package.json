@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --inspect src/server/index.js"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "mysql2": "^3.11.5"
+  },
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
