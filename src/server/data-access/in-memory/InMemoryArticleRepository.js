@@ -21,9 +21,9 @@ export class InMemoryArticleRepository {
     /**
      * @param {ArticleData} articleData
      * @param {UnixTimestamp} createdAt
-     * @returns {Article}
+     * @returns {Promise<Article>}
      */
-    createArticle(articleData,createdAt) {
+    async createArticle(articleData,createdAt) {
         const newArticleId = /** @type {ArticleId} */ (this.articles.length);
         const newArticle = new InMemoryArticle({
             repository: this,

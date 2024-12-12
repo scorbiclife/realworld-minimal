@@ -51,7 +51,7 @@ export class InMemoryArticle {
      * @param {string} newTitle
      * @param {UnixTimestamp} updatedAt
      */
-    updateTitleTo(newTitle, updatedAt) {
+    async updateTitleTo(newTitle, updatedAt) {
         this.#article.articleData.title = newTitle;
         this.#updateAt(updatedAt);
     }
@@ -60,7 +60,7 @@ export class InMemoryArticle {
      * @param {string} newBody
      * @param {UnixTimestamp} updatedAt
      */
-    updateBodyTo(newBody, updatedAt) {
+    async updateBodyTo(newBody, updatedAt) {
         this.#article.articleData.body = newBody;
         this.#updateAt(updatedAt);
     }
@@ -69,7 +69,7 @@ export class InMemoryArticle {
      * @param {Tag[]} tags
      * @param {UnixTimestamp} updatedAt
      */
-    attachTags(tags, updatedAt) {
+    async attachTags(tags, updatedAt) {
         tags.forEach((tag) => this.#tags.add(tag));
         this.#updateAt(updatedAt);
     }
@@ -78,22 +78,15 @@ export class InMemoryArticle {
      * @param {Tag[]} tags
      * @param {UnixTimestamp} updatedAt
      */
-    detachTags(tags, updatedAt) {
+    async detachTags(tags, updatedAt) {
         tags.forEach((tag) => this.#tags.delete(tag));
         this.#updateAt(updatedAt)
     }
 
     /**
-     * @returns {Set<Tag>}
+     * @returns {Promise<ArticleJson>}
      */
-    get tags() {
-        return new Set(this.#tags);
-    }
-
-    /**
-     * @returns {ArticleJson}
-     */
-    toJson() {
+    async toJson() {
         return {
             articleId: this.articleId,
             authorId: 0,
@@ -101,6 +94,7 @@ export class InMemoryArticle {
             slug: this.#article.articleData.slug,
             description: this.#article.articleData.description,
             body: this.#article.articleData.body,
+            tags: [...this.#tags].sort(),
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,
             deletedAt: this.deletedAt,

@@ -14,8 +14,8 @@ import { unixTimestampOf } from "../../domain/Time.js";
 
 const repository = new InMemoryArticleRepository();
 
-function createSampleArticle() {
-    return repository.createArticle(
+async function createSampleArticle() {
+    return await repository.createArticle(
         {
             title: "first post",
             slug: "first-post",
@@ -29,25 +29,25 @@ function createSampleArticle() {
 describe("Common tests from Article", () => {
     const updateTime = unixTimestampOf(100);
     const secondUpdateTime = unixTimestampOf(200);
-    test("updateTitleTo", () => {
-        const article = createSampleArticle();
-        testTitleUpdate(article, "updated title", updateTime);
+    test("updateTitleTo", async () => {
+        const article = await createSampleArticle();
+        await testTitleUpdate(article, "updated title", updateTime);
     });
 
-    test("updateBodyTo", () => {
-        const article = createSampleArticle();
-        testBodyUpdate(article, "updated body", updateTime);
+    test("updateBodyTo", async () => {
+        const article = await createSampleArticle();
+        await testBodyUpdate(article, "updated body", updateTime);
     });
 
-    test("attachTags", () => {
-        const article = createSampleArticle();
+    test("attachTags", async () => {
+        const article = await createSampleArticle();
         const tags = /** @type {Tag[]} */ (["first tag", "second tag"]);
-        testAttachTags(article, tags, updateTime);
+        await testAttachTags(article, tags, updateTime);
     });
-    test("detachTags", () => {
-        const article = createSampleArticle();
+    test("detachTags", async () => {
+        const article = await createSampleArticle();
         const tags = /** @type {Tag[]} */ (["first tag"]);
-        article.attachTags(tags, updateTime);
-        testDetachTags(article, tags, secondUpdateTime);
+        await article.attachTags(tags, updateTime);
+        await testDetachTags(article, tags, secondUpdateTime);
     });
 });

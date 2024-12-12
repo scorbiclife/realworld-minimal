@@ -8,12 +8,12 @@ import { expect } from "@jest/globals";
 
 /**
  * @param {Article} article
- * @param {(article: Article) => void} test
+ * @param {(article: Article) => Promise<void>} test
  */
-function testUpdatedAtChange(article, test) {
-    const initialUpdatedAt = article.toJson().updatedAt;
-    test(article);
-    const newUpdatedAt = article.toJson().updatedAt;
+async function testUpdatedAtChange(article, test) {
+    const { updatedAt: initialUpdatedAt } = await article.toJson();
+    await test(article);
+    const { updatedAt: newUpdatedAt } = await article.toJson();
     expect(newUpdatedAt).not.toEqual(initialUpdatedAt);
 }
 
@@ -22,10 +22,10 @@ function testUpdatedAtChange(article, test) {
  * @param {string} newTitle
  * @param {UnixTimestamp} at
  */
-export function testTitleUpdate(article, newTitle, at) {
-    testUpdatedAtChange(article, (article) => {
+export async function testTitleUpdate(article, newTitle, at) {
+    await testUpdatedAtChange(article, async (article) => {
         article.updateTitleTo(newTitle, at);
-        const updatedArticleJson = article.toJson();
+        const updatedArticleJson = await article.toJson();
         expect(updatedArticleJson.title).toStrictEqual(newTitle);
     });
 }
@@ -35,10 +35,10 @@ export function testTitleUpdate(article, newTitle, at) {
  * @param {string} newBody
  * @param {UnixTimestamp} at
  */
-export function testBodyUpdate(article, newBody, at) {
-    testUpdatedAtChange(article, (article) => {
+export async function testBodyUpdate(article, newBody, at) {
+    await testUpdatedAtChange(article, async (article) => {
         article.updateBodyTo(newBody, at);
-        const updatedArticleJson = article.toJson();
+        const updatedArticleJson = await article.toJson();
         expect(updatedArticleJson.body).toStrictEqual(newBody);
     });
 }
@@ -48,10 +48,13 @@ export function testBodyUpdate(article, newBody, at) {
  * @param {Tag[]} tags
  * @param {UnixTimestamp} at
  */
-export function testAttachTags(article, tags, at) {
-    testUpdatedAtChange(article, (article) => {
+export async function testAttachTags(article, tags, at) {
+    await testUpdatedAtChange(article, async (article) => {
         article.attachTags(tags, at);
-        tags.forEach(tag => expect(article.tags.has(tag)).toBeTruthy());
+        const articleJson = await article.toJson();
+        tags.forEach((tag) => {
+            expect(articleJson.tags.includes(tag)).toBeTruthy();
+        });
     });
 }
 
@@ -60,9 +63,12 @@ export function testAttachTags(article, tags, at) {
  * @param {Tag[]} tags
  * @param {UnixTimestamp} at
  */
-export function testDetachTags(article, tags, at) {
-    testUpdatedAtChange(article, (article) => {
+export async function testDetachTags(article, tags, at) {
+    await testUpdatedAtChange(article, async (article) => {
         article.detachTags(tags, at);
-        tags.forEach((tag) => expect(article.tags.has(tag)).toBeFalsy());
+        const articleJson = await article.toJson();
+        tags.forEach((tag) => {
+            expect(articleJson.tags.includes(tag)).toBeFalsy();
+        });
     });
 }
