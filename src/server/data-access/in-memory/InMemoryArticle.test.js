@@ -1,9 +1,8 @@
 import { describe, test } from "@jest/globals";
 import {
     testAttachTags,
-    testBodyUpdate,
     testDetachTags,
-    testTitleUpdate,
+    testUpdate,
 } from "../../domain/Article.test.js";
 import { InMemoryArticleRepository } from "./InMemoryArticleRepository.js";
 import { unixTimestampOf } from "../../domain/Time.js";
@@ -18,7 +17,6 @@ async function createSampleArticle() {
     return await repository.createArticle(
         {
             title: "first post",
-            slug: "first-post",
             description: "this is my first post",
             body: "Lorem ipsum dolor sit amet",
         },
@@ -29,14 +27,14 @@ async function createSampleArticle() {
 describe("Common tests from Article", () => {
     const updateTime = unixTimestampOf(100);
     const secondUpdateTime = unixTimestampOf(200);
-    test("updateTitleTo", async () => {
+    test("title update", async () => {
         const article = await createSampleArticle();
-        await testTitleUpdate(article, "updated title", updateTime);
+        await testUpdate(article, { title: "updated title" }, updateTime);
     });
 
-    test("updateBodyTo", async () => {
+    test("body update", async () => {
         const article = await createSampleArticle();
-        await testBodyUpdate(article, "updated body", updateTime);
+        await testUpdate(article, { body: "updated body" }, updateTime);
     });
 
     test("attachTags", async () => {

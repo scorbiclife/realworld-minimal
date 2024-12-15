@@ -48,11 +48,19 @@ export class InMemoryArticle {
     }
 
     /**
-     * @param {string} newTitle
+     * @param {Partial<ArticleData>} articleUpdate
      * @param {UnixTimestamp} updatedAt
      */
-    async updateTitleTo(newTitle, updatedAt) {
-        this.#article.articleData.title = newTitle;
+    async update(articleUpdate, updatedAt) {
+        if (articleUpdate.title !== null && articleUpdate.title !== undefined) {
+            this.#article.articleData.title = articleUpdate.title;
+        }
+        if (articleUpdate.body !== null && articleUpdate.body !== undefined) {
+            this.#article.articleData.body = articleUpdate.body;
+        }
+        if (articleUpdate.description !== null && articleUpdate.description !== undefined) {
+            this.#article.articleData.description = articleUpdate.description;
+        }
         this.#updateAt(updatedAt);
     }
 
@@ -91,7 +99,6 @@ export class InMemoryArticle {
             articleId: this.articleId,
             authorId: 0,
             title: this.#article.articleData.title,
-            slug: this.#article.articleData.slug,
             description: this.#article.articleData.description,
             body: this.#article.articleData.body,
             tags: [...this.#tags].sort(),

@@ -18,28 +18,32 @@ async function testUpdatedAtChange(article, test) {
 }
 
 /**
+ * @typedef {Partial<import("./Article.types").ArticleData>} ArticleUpdate
+ *
  * @param {Article} article
- * @param {string} newTitle
+ * @param {ArticleUpdate} articleUpdate
  * @param {UnixTimestamp} at
  */
-export async function testTitleUpdate(article, newTitle, at) {
+export async function testUpdate(article, articleUpdate, at) {
     await testUpdatedAtChange(article, async (article) => {
-        article.updateTitleTo(newTitle, at);
-        const updatedArticleJson = await article.toJson();
-        expect(updatedArticleJson.title).toStrictEqual(newTitle);
-    });
-}
-
-/**
- * @param {Article} article
- * @param {string} newBody
- * @param {UnixTimestamp} at
- */
-export async function testBodyUpdate(article, newBody, at) {
-    await testUpdatedAtChange(article, async (article) => {
-        article.updateBodyTo(newBody, at);
-        const updatedArticleJson = await article.toJson();
-        expect(updatedArticleJson.body).toStrictEqual(newBody);
+        const {
+            title: oldTitle,
+            body: oldBody,
+            description: oldDescription,
+        } = await article.toJson();
+        await article.update(articleUpdate, at);
+        const {
+            title: newTitle,
+            body: newBody,
+            description: newDescription,
+            updatedAt,
+        } = await article.toJson();
+        expect(newTitle).toStrictEqual(articleUpdate.title ?? oldTitle);
+        expect(newBody).toStrictEqual(articleUpdate.body ?? oldBody);
+        expect(newDescription).toStrictEqual(
+            articleUpdate.description ?? oldDescription
+        );
+        expect(updatedAt).toStrictEqual(at);
     });
 }
 
