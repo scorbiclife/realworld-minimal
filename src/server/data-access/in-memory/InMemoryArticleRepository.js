@@ -5,11 +5,11 @@ import { InMemoryArticle } from "./InMemoryArticle.js";
  * @typedef {import("./InMemoryArticle.js").ArticleId} ArticleId
  * @typedef {import("./InMemoryArticle.js").UnixTimestamp} UnixTimestamp
  * @typedef {import("./InMemoryArticle.js").ArticleData} ArticleData
- * @typedef {import("../../domain/ArticleUseCaseTestHelper.js").ArticleFactory} ArticleFactory
+ * @typedef {import("#domain/ArticleUseCase.d.ts").ArticleRepository} ArticleRepository
  */
 
 /**
- * @implements {ArticleFactory}
+ * @implements {ArticleRepository}
  */
 export class InMemoryArticleRepository {
     constructor() {

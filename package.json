@@ -12,5 +12,11 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "nodemon": "^3.1.7"
+  },
+  "imports": {
+    "#src/*": "./src/*",
+    "#domain/*": "./src/server/domain/*",
+    "#data-access/*": "./src/server/data-access/*",
+    "#controller/*": "./src/server/controller/*"
   }
 }

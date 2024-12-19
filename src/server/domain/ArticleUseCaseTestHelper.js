@@ -2,11 +2,11 @@ import { expect } from "@jest/globals";
 import { unixTimestampOf } from "./Time.js";
 
 /**
- * @typedef {import("./ArticleUseCase.js").ArticleRepository} ArticleFactory
+ * @typedef {import("./ArticleUseCase.js").ArticleRepository} ArticleRepository
  */
 
 /**
- * @param {{ repo: ArticleFactory }} param0
+ * @param {{ repo: ArticleRepository }} param0
  */
 export async function testArticleRepository({ repo }) {
     const INITIAL_TIME = unixTimestampOf(0);

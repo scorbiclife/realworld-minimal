@@ -1,11 +1,11 @@
 /**
- * @typedef {import('../../domain/ArticleUseCase').Article} Article
- * @typedef {import('../../domain/ArticleUseCase').ArticleData} ArticleData
- * @typedef {import('../../domain/ArticleUseCase').ArticleId} ArticleId
- * @typedef {import('../../domain/ArticleUseCase').ArticleJson} ArticleJson
- * @typedef {import('../../domain/ArticleUseCase').ArticleRepository} ArticleRepository
- * @typedef {import('../../domain/Tag.types').Tag} Tag
- * @typedef {import('../../domain/Time.types').UnixTimestamp} UnixTimestamp
+ * @typedef {import('#domain/ArticleUseCase.d.ts').Article} Article
+ * @typedef {import('#domain/ArticleUseCase.d.ts').ArticleData} ArticleData
+ * @typedef {import('#domain/ArticleUseCase.d.ts').ArticleId} ArticleId
+ * @typedef {import('#domain/ArticleUseCase.d.ts').ArticleJson} ArticleJson
+ * @typedef {import('#domain/ArticleUseCase.d.ts').ArticleRepository} ArticleRepository
+ * @typedef {import('#domain/Tag.d.ts').Tag} Tag
+ * @typedef {import('#domain/Time.types.d.ts').UnixTimestamp} UnixTimestamp
  */
 
 /**
