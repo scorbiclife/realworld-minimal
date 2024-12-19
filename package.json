@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --inspect src/server/index.js"
+    "dev": "cross-env NODE_ENV=development nodemon --inspect src/server/index.js",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "dependencies": {
     "cross-env": "^7.0.3",

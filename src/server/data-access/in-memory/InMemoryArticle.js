@@ -1,8 +1,11 @@
 /**
- * @import { Article, ArticleData, ArticleFactory, ArticleId, ArticleJson }
- *  from "../../domain/Article.types"
- * @import { Tag } from "../../domain/Tag.types"
- * @import { UnixTimestamp } from "../../domain/Time.types"
+ * @typedef {import('../../domain/ArticleUseCase').Article} Article
+ * @typedef {import('../../domain/ArticleUseCase').ArticleData} ArticleData
+ * @typedef {import('../../domain/ArticleUseCase').ArticleId} ArticleId
+ * @typedef {import('../../domain/ArticleUseCase').ArticleJson} ArticleJson
+ * @typedef {import('../../domain/ArticleUseCase').ArticleRepository} ArticleRepository
+ * @typedef {import('../../domain/Tag.types').Tag} Tag
+ * @typedef {import('../../domain/Time.types').UnixTimestamp} UnixTimestamp
  */
 
 /**
@@ -94,7 +97,7 @@ export class InMemoryArticle {
     /**
      * @returns {Promise<ArticleJson>}
      */
-    async toJson() {
+    async getJson() {
         return {
             articleId: this.articleId,
             authorId: 0,

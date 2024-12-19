@@ -1,17 +1,23 @@
 import type { Tag } from "./Tag.types";
-import { UnixTimestamp } from "./Time.types";
+import type { UnixTimestamp } from "./Time.types";
 
 export type ArticleId = number & { type: "ArticleId" };
 
-export interface Article {
-    update(newArticle: Partial<ArticleData>, at: UnixTimestamp): Promise<void>;
+export interface Article extends ArticleCommand, ArticleQuery {}
+
+export interface ArticleCommand {
+    update(articleDiff: Partial<ArticleData>, at: UnixTimestamp): Promise<void>;
     attachTags(tags: Tag[], at: UnixTimestamp): Promise<void>;
     detachTags(tags: Tag[], at: UnixTimestamp): Promise<void>;
-    toJson(): Promise<ArticleJson>;
 }
 
-export interface ArticleFactory {
-    createArticle(articleData: ArticleData, at: UnixTimestamp): Promise<Article>;
+export interface ArticleQuery {
+    getJson(): Promise<ArticleJson>;
+}
+
+export interface ArticleRepository {
+    saveArticle(articleData: ArticleData, at: UnixTimestamp): Promise<Article>;
+    getArticleById(articleId: ArticleId): Promise<Article>;
 }
 
 /**
@@ -21,7 +27,7 @@ export type ArticleData = {
     title: string;
     description: string;
     body: string;
-}
+};
 
 export type ArticleJson = {
     articleId: number;
