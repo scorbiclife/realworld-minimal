@@ -1,5 +1,5 @@
-import type { Tag } from "./Tag.types";
-import type { UnixTimestamp } from "./Time.types";
+import type { Tag } from "./Tag";
+import type { UnixTimestamp } from "./TimeTypes";
 
 export type ArticleId = number & { type: "ArticleId" };
 

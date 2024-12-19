@@ -5,7 +5,7 @@
  * @typedef {import('#domain/ArticleUseCase.d.ts').ArticleJson} ArticleJson
  * @typedef {import('#domain/ArticleUseCase.d.ts').ArticleRepository} ArticleRepository
  * @typedef {import('#domain/Tag.d.ts').Tag} Tag
- * @typedef {import('#domain/Time.types.d.ts').UnixTimestamp} UnixTimestamp
+ * @typedef {import('#domain/TimeTypes.d.ts').UnixTimestamp} UnixTimestamp
  */
 
 /**

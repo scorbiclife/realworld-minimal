@@ -1,5 +1,5 @@
 import { expect } from "@jest/globals";
-import { unixTimestampOf } from "./Time.js";
+import { unixTimestampOf } from "./TimeTypes.js";
 
 /**
  * @typedef {import("./ArticleUseCase.js").ArticleRepository} ArticleRepository
