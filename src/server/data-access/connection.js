@@ -1,5 +1,5 @@
 import { createPool } from "mysql2/promise";
-import { env } from "../../env/index.js";
+import { env } from "#src/env/index.js";
 
 const { host, port, user, password, database } = env;
 
